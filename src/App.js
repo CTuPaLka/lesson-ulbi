@@ -12,21 +12,19 @@ function App() {
     { id: 3, title: "JavaScript", body: "Description" },
     { id: 4, title: "JavaScript", body: "Description" },
   ]);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [post, setPost] = useState({
+    title: "",
+    body: "",
+  });
+  // const [title, setTitle] = useState("");
+  // const [body, setBody] = useState("");
 
   const bodyInputRef = useRef();
 
   const addNewPost = (e) => {
     e.preventDefault();
-    const newPost = {
-      id: Date.now(),
-      title,
-      body,
-    };
-    setPosts([...posts, newPost]);
-    setTitle("");
-    setBody("");
+    setPosts([...posts, { ...post, id: Date.now() }]);
+    setPost({ ...post, title: "", body: "" });
   };
 
   return (
@@ -34,15 +32,15 @@ function App() {
       <form action="">
         {/* управляемый компонент */}
         <Input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={post.title}
+          onChange={(e) => setPost({ ...post, title: e.target.value })}
           type="text"
           placeholder="Название поста"
         />
         {/* теперь управляемый компонент.*/}
         <Input
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
+          value={post.body}
+          onChange={(e) => setPost({ ...post, body: e.target.value })}
           type="text"
           placeholder="Описание поста"
         />
