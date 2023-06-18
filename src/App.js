@@ -13,14 +13,20 @@ function App() {
     { id: 4, title: "JavaScript", body: "Description" },
   ]);
   const [title, setTitle] = useState("");
-  // const [title2, setTitle2] = useState("");
+  const [body, setBody] = useState("");
 
   const bodyInputRef = useRef();
 
   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(title);
-    console.log(bodyInputRef.current.value);
+    const newPost = {
+      id: Date.now(),
+      title,
+      body,
+    };
+    setPosts([...posts, newPost]);
+    setTitle("");
+    setBody("");
   };
 
   return (
@@ -33,9 +39,10 @@ function App() {
           type="text"
           placeholder="Название поста"
         />
-        {/* неуправляемый компонент. если передавать просто ref вместо innerRef, то выбивает ошибку */}
+        {/* теперь управляемый компонент.*/}
         <Input
-          innerRef={bodyInputRef}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           type="text"
           placeholder="Описание поста"
         />
