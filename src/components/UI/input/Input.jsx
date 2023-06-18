@@ -1,12 +1,12 @@
 import React from "react";
 import css from './Input.module.css'
 
-const Input = (props)=>{
+const Input = ({innerRef, ...props})=>{
     // const [] = useState(0)
 
     return (
 
-        <input {...props} className={css.input}/>
+        <input {...props} ref={innerRef} className={css.input}/>
     )
 }
 

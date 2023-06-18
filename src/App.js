@@ -20,6 +20,7 @@ function App() {
   const addNewPost = (e) => {
     e.preventDefault();
     console.log(title);
+    console.log(bodyInputRef.current.value);
   };
 
   return (
@@ -32,7 +33,12 @@ function App() {
           type="text"
           placeholder="Название поста"
         />
-        <Input ref={bodyInputRef} type="text" placeholder="Описание поста" />
+        {/* неуправляемый компонент. если передавать просто ref вместо innerRef, то выбивает ошибку */}
+        <Input
+          innerRef={bodyInputRef}
+          type="text"
+          placeholder="Описание поста"
+        />
         <Button onClick={addNewPost}>Создать пост</Button>
       </form>
       <PostList posts={posts} title="Посты про js" />
