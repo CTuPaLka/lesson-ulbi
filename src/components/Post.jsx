@@ -3,10 +3,7 @@ import Button from "./UI/button/Button";
 
 const Post = (props)=>{
     // const [] = useState(0)
-  console.log(props)
-  const deletePost = ()=>{
-    
-  }
+  
     return (
 
         <div className="post">
@@ -16,7 +13,7 @@ const Post = (props)=>{
         </div>
         <div className="post__btns">
           {/* <button>удалить</button> */}
-          <Button onClick={deletePost}>Удалить</Button>
+          <Button onClick={()=>props.remove(props.post.id)}>Удалить</Button>
           
         </div>
       </div>

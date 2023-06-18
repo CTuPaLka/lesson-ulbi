@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Post from "./Post";
 
-const PostList = ({posts, title})=>{
+const PostList = ({remove, posts, title})=>{
 
     return (
 
@@ -10,7 +10,7 @@ const PostList = ({posts, title})=>{
               {title}
             </h1>
       {posts.map((post, index) => (
-        <Post number={index+1} post={post} key={post.id} />
+        <Post remove={remove} number={index+1} post={post} key={post.id} />
       ))}
         </div>
     )
