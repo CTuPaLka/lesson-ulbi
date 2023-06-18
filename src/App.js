@@ -1,30 +1,41 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import "./styles/NullStyle.css";
+import "./styles/app.css";
+import PostList from "./components/PostList";
+import Button from "./components/UI/button/Button";
+import Input from "./components/UI/input/Input";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [value, setValue] = useState("hello");
+  const [posts, setPosts] = useState([
+    { id: 1, title: "JavaScript", body: "Description" },
+    { id: 2, title: "JavaScript", body: "Description" },
+    { id: 3, title: "JavaScript", body: "Description" },
+    { id: 4, title: "JavaScript", body: "Description" },
+  ]);
+  const [title, setTitle] = useState("");
+  // const [title2, setTitle2] = useState("");
 
-  let increament = () => {
-    setCounter(counter + 1);
-  };
-  let decreament = () => {
-    setCounter(counter - 1);
-  };
-  let changeinputValue = () => {
-    setValue();
+  const bodyInputRef = useRef();
+
+  const addNewPost = (e) => {
+    e.preventDefault();
+    console.log(title);
   };
 
   return (
-    <div>
-      <div>Счетчик: {counter}</div>
-      <div>{value}</div>
-      <input
-        type="text"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-      />
-      <button onClick={increament}>increament</button>
-      <button onClick={decreament}>decreament</button>
+    <div className="App">
+      <form action="">
+        {/* управляемый компонент */}
+        <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          type="text"
+          placeholder="Название поста"
+        />
+        <Input ref={bodyInputRef} type="text" placeholder="Описание поста" />
+        <Button onClick={addNewPost}>Создать пост</Button>
+      </form>
+      <PostList posts={posts} title="Посты про js" />
     </div>
   );
 }
