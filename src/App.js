@@ -1,17 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
+import PostServices from "./API/PostService";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
+import Button from "./components/UI/button/Button";
+import MyModal from "./components/UI/myModal/MyModal";
+import { usePosts } from "./hooks/usePosts";
 import "./styles/NullStyle.css";
 import "./styles/app.css";
-import MyModal from "./components/UI/myModal/MyModal";
-import Button from "./components/UI/button/Button";
-import { usePosts } from "./hooks/usePosts";
-import axios from "axios";
-import { useEffect } from "react";
 
 function App() {
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
@@ -27,10 +26,8 @@ function App() {
   }, []);
 
   async function fetchPost() {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    setPosts(response.data);
+    const posts = await PostServices.getAll();
+    setPosts(posts);
   }
 
   const removePost = id => {
