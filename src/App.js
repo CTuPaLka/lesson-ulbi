@@ -7,14 +7,11 @@ import "./styles/app.css";
 import MyModal from "./components/UI/myModal/MyModal";
 import Button from "./components/UI/button/Button";
 import { usePosts } from "./hooks/usePosts";
+import axios from "axios";
+import { useEffect } from "react";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: "а", body: "г" },
-    { id: 2, title: "б", body: "в" },
-    { id: 3, title: "в", body: "б" },
-    { id: 4, title: "г", body: "а" },
-  ]);
+  const [posts, setPosts] = useState();
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
@@ -24,6 +21,18 @@ function App() {
     setPosts([...posts, newPost]);
     setModal(false);
   };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  async function fetchPost() {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
+    setPosts(response.data);
+  }
+
   const removePost = id => {
     setPosts(posts.filter(post => post.id !== id));
   };
