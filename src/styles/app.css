@@ -5,6 +5,10 @@
     display: flex;
     justify-content: center;
 }
+h1{
+  font-size: 3vw;
+  margin: 2vw 0 0 0;
+}
 .post{
 display: flex;
 padding: 15px;
@@ -28,6 +32,30 @@ align-items: center;
 .post-exit-active {
       transform: translateX(-1000px);
     opacity: 0;
-    transition: all 500ms ease-in;
+    transition: all 500ms ease-in
+  }
+  .pagesNumbers{
+    font-size: 20px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .pagesNumber{
+    cursor: pointer;
+    margin-right: 2vw;
+    border-radius: 50%;
+    border: 0.2vw solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 3vw;
+    height: 3vw;
+  }
+  .pagesNumbersCurrent{
+    background-color: #a3a0a0;
   }
   

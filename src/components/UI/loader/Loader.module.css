@@ -1,0 +1,22 @@
+.loader{
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+    border: 0.7vw dashed rgb(35, 153, 231);
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg) scale(1);
+    }
+
+    50%{
+        transform: rotate(120deg) scale(1.4);
+
+            }
+
+    to{
+        transform: rotate(360deg) scale(1);
+    }
+}
