@@ -12,6 +12,7 @@ import Loader from "./components/UI/loader/Loader";
 import { useFetching } from "./hooks/useFetching";
 import { getPageCount } from "./components/utils/pages";
 import { usePagesArray } from "./hooks/usePagesArray";
+import Pagination from "./components/UI/pagination/Pagination";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -30,7 +31,6 @@ function App() {
     setTotalPages(getPageCount(totalCount, limit));
   });
 
-  const pagesArray = usePagesArray(totalPages);
   useEffect(() => {
     fetchPosts();
   }, [page]);
@@ -78,19 +78,11 @@ function App() {
           title="Посты про js"
         />
       )}
-      <div className="pagesNumbers">
-        {pagesArray.map(i => (
-          <span
-            key={i}
-            className={
-              i === page ? "pagesNumber pagesNumbersCurrent" : "pagesNumber"
-            }
-            onClick={() => changePage(i)}
-          >
-            {i}
-          </span>
-        ))}
-      </div>
+      <Pagination
+        totalPages={totalPages}
+        pagesNumber={page}
+        changePage={changePage}
+      />
     </div>
   );
 }
