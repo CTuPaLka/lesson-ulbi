@@ -1,0 +1,20 @@
+.navbar{
+    height: 6vh;
+    width: 100vw;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0 15px;
+    background-color: #646060;
+    }
+    .navbar__linksItem{
+        padding: 0 2vw;
+        color: white;
+    
+    }
+.navbar__active{
+    color: rgb(235, 112, 112);
+}
+.navbar__links{
+    
+}

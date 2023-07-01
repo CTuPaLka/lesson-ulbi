@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Post from "./Post";
+import Post from "../pages/Post";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const PostList = ({ remove, posts, title }) => {

@@ -1,7 +1,9 @@
 import React from "react";
-import Button from "./UI/button/Button";
+import Button from "../components/UI/button/Button";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Post = props => {
+  const navigate = useNavigate();
   return (
     <div className="post">
       <div className="post__content">
@@ -12,6 +14,9 @@ const Post = props => {
       </div>
       <div className="post__btns">
         {/* <button>удалить</button> */}
+        <Button>
+          <NavLink to={"/posts/" + props.post.id}>Открыть</NavLink>
+        </Button>
         <Button onClick={() => props.remove(props.post.id)}>Удалить</Button>
       </div>
     </div>
