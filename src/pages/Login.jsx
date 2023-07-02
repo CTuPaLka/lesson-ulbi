@@ -8,6 +8,7 @@ function Login() {
   const login = event => {
     event.preventDefault();
     setisAuth(true);
+    localStorage.setItem("auth", "true");
   };
   return (
     <div>

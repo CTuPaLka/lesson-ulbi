@@ -12,10 +12,13 @@ const setActive = props => {
 };
 
 function Navbar() {
+  const { setisAuth } = useContext(AuthContext);
+
   const login = () => {
+    localStorage.removeItem("auth");
     setisAuth(false);
   };
-  const { setisAuth } = useContext(AuthContext);
+
   return (
     <div className={css.navbar__wrapper}>
       <Button onClick={login}>Exit</Button>
