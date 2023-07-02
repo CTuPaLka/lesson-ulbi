@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PostServices from "../API/PostService";
 import Button from "../components/UI/button/Button";
 import MyModal from "../components/UI/myModal/MyModal";
@@ -18,15 +18,30 @@ function Posts() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const lastElement = useRef();
+  const observer = useRef();
 
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
   const [fetchPosts, isPostLoading, postError] = useFetching(async () => {
     const response = await PostServices.getAll(limit, page);
-    setPosts(response.data);
+    setPosts([...posts, ...response.data]);
     const totalCount = response.headers["x-total-count"];
     setTotalPages(getPageCount(totalCount, limit));
   });
 
+  useEffect(() => {
+    // debugger;
+    if (isPostLoading) return;
+    if (observer.current) observer.current.disconnect();
+    const callback = function (entries, observer) {
+      if (entries[0].isIntersecting && page < totalPages) {
+        setPage(page + 1);
+      }
+    };
+    console.log(observer.current);
+    observer.current = new IntersectionObserver(callback);
+    observer.current.observe(lastElement.current);
+  }, [isPostLoading]);
   useEffect(() => {
     fetchPosts();
   }, [page]);
@@ -57,7 +72,7 @@ function Posts() {
       {postError && (
         <h1 style={{ textAlign: "center" }}>Произошла ошибка ${postError}</h1>
       )}
-      {isPostLoading ? (
+      {isPostLoading && (
         <div
           style={{
             display: "flex",
@@ -67,13 +82,14 @@ function Posts() {
         >
           <Loader />
         </div>
-      ) : (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Посты про js"
-        />
       )}
+
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Посты про js"
+      />
+      <div ref={lastElement} style={{ height: "20px", background: "red" }} on />
       <Pagination
         totalPages={totalPages}
         pagesNumber={page}

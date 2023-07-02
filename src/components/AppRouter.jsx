@@ -6,7 +6,8 @@ import Posts from "../pages/Posts";
 import { AuthContext } from "../context/context";
 
 function AppRouter() {
-  const { isAuth, setisAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
+
   return isAuth ? (
     <Routes>
       {privateRoutes.map(route => (
