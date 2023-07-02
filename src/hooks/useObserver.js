@@ -1,17 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const useObserver = (ref, canload, isLoading, callback) => {
+  const observer = useRef();
   useEffect(() => {
     // debugger;
     if (isLoading) return;
     if (observer.current) observer.current.disconnect();
-    const callback = function (entries, observer) {
-      if (entries[0].isIntersecting && page < totalPages) {
-        setPage(page + 1);
+    const cb = function (entries, observer) {
+      if (entries[0].isIntersecting && canload) {
+        callback();
       }
     };
     console.log(observer.current);
-    observer.current = new IntersectionObserver(callback);
-    observer.current.observe(lastElement.current);
-  }, [isPostLoading]);
+    observer.current = new IntersectionObserver(cb);
+    observer.current.observe(ref.current);
+  }, [isLoading]);
 };
