@@ -40,7 +40,7 @@ function PostIdPage() {
         <div style={{ margin: "0 0 0 3vw" }}>
           {comments.map(e => {
             return (
-              <div style={{ marginTop: "2vh" }}>
+              <div key={e.id} style={{ marginTop: "2vh" }}>
                 <h5>Name: {e.name}</h5>
                 <h5>email: {e.email}</h5>
                 <div>{e.body}</div>

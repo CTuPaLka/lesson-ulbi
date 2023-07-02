@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import css from "./Navbar.module.css";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/context";
+import Button from "../button/Button";
 
 const setActive = props => {
   return ({ isActive }) =>
@@ -9,9 +12,14 @@ const setActive = props => {
 };
 
 function Navbar() {
+  const login = () => {
+    setisAuth(false);
+  };
+  const { setisAuth } = useContext(AuthContext);
   return (
-    <div className="navbar">
-      <nav className="navbar-links">
+    <div className={css.navbar__wrapper}>
+      <Button onClick={login}>Exit</Button>
+      <nav className={css.navbarLinks}>
         <NavLink className={setActive()} to="/about">
           About
         </NavLink>

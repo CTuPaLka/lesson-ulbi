@@ -1,19 +1,25 @@
-import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import Posts from "./pages/Posts";
-import About from "./pages/About";
-import Post from "../pages/Post";
-import PostIdPage from "../pages/PostIdPage";
+import React, { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+import Login from "../pages/Login";
+import { privateRoutes, publicRoutes } from "../router/routes";
+import Posts from "../pages/Posts";
+import { AuthContext } from "../context/context";
 
 function AppRouter() {
-  return (
+  const { isAuth, setisAuth } = useContext(AuthContext);
+  return isAuth ? (
     <Routes>
-      <Route path="/about" element={<About />}></Route>
-      <Route path="/posts" element={<Posts />}></Route>
-      <Route path="/" element={<Posts />}></Route>
-      <Route path="/posts/:id" element={<PostIdPage />}></Route>
-      {/* данная строка при неизвестном url перенаправляет на компонент постов */}
-      <Route path="/*" element={<Navigate to="/posts" />} />
+      {privateRoutes.map(route => (
+        <Route element={<route.element />} path={route.path} key={route.path} />
+      ))}
+      <Route key="/*" path="/*" element={<Posts />} />
+    </Routes>
+  ) : (
+    <Routes>
+      {publicRoutes.map(route => (
+        <Route element={<route.element />} key={route.path} path={route.path} />
+      ))}
+      <Route key="/*" path="/*" element={<Login />} />
     </Routes>
   );
 }
